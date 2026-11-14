@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070b18">
+<title>Adwaith AI</title>
+<style>
+:root{--cyan:#4deaff;--blue:#5478ff;--purple:#a855f7;--ink:#eaf7ff}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:system-ui,"Noto Sans Malayalam",sans-serif;background:#050816;overflow-x:hidden}
+.scene{position:fixed;inset:0;overflow:hidden;z-index:-2;background:radial-gradient(ellipse at 50% 35%,#182b55 0%,#0b1230 38%,#050816 78%)}
+.scene:before,.scene:after{content:"";position:absolute;inset:-30%;background-image:linear-gradient(#3c8cff18 1px,transparent 1px),linear-gradient(90deg,#3c8cff18 1px,transparent 1px);background-size:58px 58px;transform:perspective(550px) rotateX(62deg) translateY(12%);transform-origin:center;animation:gridmove 18s linear infinite}
+.scene:after{background-image:radial-gradient(circle,#77eaff9c 1px,transparent 1.5px);background-size:75px 75px;transform:none;opacity:.32;animation:drift 35s linear infinite}
+@keyframes gridmove{to{background-position:0 58px,58px 0}}
+@keyframes drift{to{transform:translate3d(45px,-35px,0)}}
+.orb{position:absolute;border-radius:50%;filter:blur(2px);opacity:.65;animation:float 9s ease-in-out infinite}
+.orb.one{width:260px;height:260px;left:-90px;top:15%;background:radial-gradient(circle at 35% 30%,#73f5ff,#3154d8 42%,#111a55 70%,transparent 72%);box-shadow:0 0 90px #3278ff66}
+.orb.two{width:330px;height:330px;right:-120px;top:45%;background:radial-gradient(circle at 35% 30%,#e3a4ff,#8435d8 42%,#24104e 70%,transparent 72%);box-shadow:0 0 110px #a855f766;animation-delay:-4s}
+@keyframes float{50%{transform:translateY(-28px) translateX(12px) rotate(8deg)}}
+.wrap{width:min(100%,920px);margin:auto;padding:22px 16px 34px}
+header{display:flex;align-items:center;gap:13px;padding:12px 4px 22px}
+.logo{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;font-size:27px;font-weight:900;color:#06111e;background:linear-gradient(135deg,#a4f8ff,#527aff 55%,#c18cff);box-shadow:0 0 28px #4deaff77, inset 0 1px 8px #fff9;transform:rotate(-7deg)}
+.brand{font-size:23px;font-weight:850;letter-spacing:.4px;text-shadow:0 0 18px #4deaff77}
+.sub{font-size:12px;color:#9bb6d5;letter-spacing:2px;text-transform:uppercase}
+.status{margin-left:auto;border:1px solid #4deaff55;background:#0c2440aa;border-radius:30px;padding:7px 11px;font-size:11px;color:#8ff5ff;white-space:nowrap}
+.hero{text-align:center;padding:18px 8px 25px}
+.core{width:116px;height:116px;margin:0 auto 18px;position:relative;display:grid;place-items:center}
+.core:before,.core:after{content:"";position:absolute;inset:4px;border:2px solid #4deaff99;border-radius:30px;transform:rotate(45deg);box-shadow:0 0 26px #4deaff55,inset 0 0 22px #4deaff22;animation:spin 12s linear infinite}
+.core:after{inset:15px;border-color:#bd80ffbb;border-radius:50%;transform:rotate(0);animation:spin 9s linear infinite reverse}
+@keyframes spin{to{transform:rotate(405deg)}}
+.core span{font-size:43px;filter:drop-shadow(0 0 15px #61eaff);z-index:1}
+h1{margin:0;font-size:clamp(29px,7vw,48px);font-weight:900;letter-spacing:1px;background:linear-gradient(90deg,#fff,#7eeeff,#c6a4ff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 35px #4deaff22}
+.tagline{color:#a9c1df;margin:8px 0 0;font-size:14px}
+.panel{border:1px solid #6ceaff38;border-radius:25px;background:linear-gradient(145deg,#101d38d9,#080f22eF);box-shadow:0 18px 65px #0009,0 0 35px #4deaff12,inset 0 1px 0 #ffffff18;backdrop-filter:blur(18px);overflow:hidden}
+.panel-head{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;border-bottom:1px solid #6ceaff20;color:#c8eaff;font-size:13px}
+.panel-head small{color:#7f9dbd}
+.messages{height:min(42vh,390px);min-height:260px;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:13px}
+.msg{max-width:88%;padding:12px 15px;border-radius:17px;line-height:1.55;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.bot{align-self:flex-start;background:#14294a;border:1px solid #4deaff35;border-bottom-left-radius:5px}
+.user{align-self:flex-end;background:linear-gradient(130deg,#2856a8,#653eaa);border:1px solid #9a9cff55;border-bottom-right-radius:5px}
+.composer{padding:13px;border-top:1px solid #6ceaff20;display:flex;gap:9px;align-items:flex-end}
+textarea{flex:1;resize:none;min-height:48px;max-height:120px;border-radius:15px;border:1px solid #4b79a8;background:#071329;color:white;padding:13px;font:inherit;outline:none}
+textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #4deaff19}
+button{border:0;cursor:pointer;color:#06111e;font-weight:800;border-radius:14px;background:linear-gradient(135deg,#8af5ff,#7e9cff 60%,#c18cff);box-shadow:0 5px 20px #4deaff30;min-width:49px;height:48px;font-size:18px}
+button:active{transform:scale(.96)}
+button.secondary{background:#14294a;color:#bfefff;border:1px solid #4deaff44;box-shadow:none}
+.quick{display:flex;gap:8px;flex-wrap:wrap;padding:0 14px 15px}
+.quick button{height:auto;min-width:0;padding:8px 12px;font-size:12px;background:#102443;color:#bfefff;border:1px solid #4deaff30;box-shadow:none}
+.note{text-align:center;color:#7893b4;font-size:11px;margin:14px 8px 0}
+@media(min-width:700px){.wrap{padding-top:28px}.hero{padding-top:25px}.messages{height:390px}}
+</style>
+</head>
+<body>
+<div class="scene"><div class="orb one"></div><div class="orb two"></div></div>
+<div class="wrap">
+<header>
+  <div class="logo">A</div>
+  <div><div class="brand">ADWAITH AI</div><div class="sub">Your intelligent companion</div></div>
+  <div class="status">● AI INTERFACE</div>
+</header>
+<section class="hero">
+  <div class="core"><span>✦</span></div>
+  <h1>ADWAITH AI</h1>
+  <p class="tagline">നിന്റെ സ്വന്തം മലയാളം AI അസിസ്റ്റന്റ്</p>
+</section>
+<main class="panel">
+  <div class="panel-head"><span>✧ AI CHAT</span><small>സഹായിക്കാൻ തയ്യാറാണ്</small></div>
+  <div class="messages" id="messages">
+    <div class="msg bot">നമസ്കാരം! ഞാൻ Adwaith AI ആണ്. 😎<br>എന്താണ് ഇന്ന് ചെയ്യേണ്ടത്?</div>
+  </div>
+  <div class="quick">
+    <button onclick="quick('എനിക്ക് പഠിക്കാൻ സഹായിക്കൂ')">📚 പഠനം</button>
+    <button onclick="quick('ഒരു HTML വെബ്സൈറ്റ് ഉണ്ടാക്കാൻ സഹായിക്കൂ')">💻 Coding</button>
+    <button onclick="quick('ഇന്നത്തെ ഒരു നല്ല കാര്യം പറയൂ')">⚡ ഒരു കാര്യം</button>
+  </div>
+  <div class="composer">
+    <textarea id="prompt" placeholder="മലയാളത്തിൽ ചോദിക്കൂ..." rows="1"></textarea>
+    <button class="secondary" title="ശബ്ദം" onclick="voice()">🎙</button>
+    <button title="അയയ്ക്കുക" onclick="send()">➤</button>
+  </div>
+</main>
+<p class="note">Adwaith AI • സുരക്ഷിതമായ AI അനുഭവം</p>
+</div>
+<script>
+const messages=document.getElementById('messages'), input=document.getElementById('prompt');
+function add(text,cls){const d=document.createElement('div');d.className='msg '+cls;d.textContent=text;messages.appendChild(d);messages.scrollTop=messages.scrollHeight}
+function quick(t){input.value=t;send()}
+async function send(){
+ const q=input.value.trim();if(!q)return;
+ add(q,'user');input.value='';
+ const wait=document.createElement('div');wait.className='msg bot';wait.textContent='ചിന്തിക്കുന്നു...';messages.appendChild(wait);messages.scrollTop=messages.scrollHeight;
+ try{
+   const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:q})});
+   if(!r.ok)throw new Error('backend unavailable');
+   const data=await r.json();wait.textContent=data.reply||'മറുപടി ലഭിച്ചില്ല.';
+ }catch(e){wait.textContent='ഇപ്പോൾ AI backend കണക്റ്റ് ചെയ്തിട്ടില്ല. OpenAI API സുരക്ഷിതമായി ബന്ധിപ്പിക്കാൻ server setup വേണം.';}
+ messages.scrollTop=messages.scrollHeight;
+}
+function voice(){
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){add('ഈ browser-ൽ voice input ലഭ്യമല്ല.','bot');return}
+ const rec=new SR();rec.lang='ml-IN';rec.onresult=e=>{input.value=e.results[0][0].transcript};rec.start();
+}
+input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}});
+</script>
+</body>
+</html>
